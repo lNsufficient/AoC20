@@ -28,14 +28,16 @@ def get_seat_info(seat):
     seat_id = get_seat_id(row, col) 
     return row, col, seat_id
 
-def print_seat_info(row, col, seat_id):
+def print_seat_info(seat, row, col, seat_id):
+    print("Seat: " + str(seat))
     print("Row: " + str(row) + ", Col: " + str(col))
-    print("Seat ID: " + str(seat_id))
+    print("Seat ID: " + str(seat_id) + "\n")
 
 
 if __name__ == "__main__":
-    seat = "FBFBBFFRLR"
-    seat_info = get_seat_info(seat)
-    print_seat_info(*seat_info)
+    seats = ["FBFBBFFRLR", "BFFFBBFRRR", "FFFBBBFRRR", "BBFFBBFRLL"]
+    for seat in seats:
+        seat_info = get_seat_info(seat)
+        print_seat_info(seat, *seat_info)
 
     print("Highest seat ID: " + str(get_seat_id(127, 7)))
