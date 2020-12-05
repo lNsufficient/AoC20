@@ -40,6 +40,9 @@ if __name__ == "__main__":
     file_path = sys.argv[1]
     if file_path:
         highest_seat_id = 0
+        lowest_seat_id = get_seat_id(127, 7) 
+        nbr_seats = lowest_seat_id + 1
+        seats_found = [0]*nbr_seats
         with open(file_path, 'r') as file_data:
             seat = file_data.readline()
             while seat:
@@ -47,12 +50,15 @@ if __name__ == "__main__":
                 seat_info = get_seat_info(seat)
                 print_seat_info(seat, *seat_info)
                 seat_id = seat_info[2]
+                seats_found[seat_id] = 1
                 highest_seat_id = max(seat_id, highest_seat_id)
+                lowest_seat_id = min(seat_id, lowest_seat_id)
                 seat = file_data.readline()
+        seat_diff_list = [seats_found[i-1] + seats_found[i+1] - seats_found[i] for i in range(lowest_seat_id, highest_seat_id+1)]
+        print(seat_diff_list)
         print("Highest seat ID: " + str(highest_seat_id))
-
-
-
+        print("Lowest seat ID: " + str(lowest_seat_id))
+        print("My seat id: " + str(seat_diff_list.index(2) + lowest_seat_id))
 
     else: 
         seats = ["FBFBBFFRLR", "BFFFBBFRRR", "FFFBBBFRRR", "BBFFBBFRLL"]
