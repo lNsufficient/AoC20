@@ -1,3 +1,5 @@
+import sys
+
 def get_pos(seat, index, lower_limit, upper_limit):
     if lower_limit == upper_limit:
         return index, lower_limit
@@ -35,9 +37,27 @@ def print_seat_info(seat, row, col, seat_id):
 
 
 if __name__ == "__main__":
-    seats = ["FBFBBFFRLR", "BFFFBBFRRR", "FFFBBBFRRR", "BBFFBBFRLL"]
-    for seat in seats:
-        seat_info = get_seat_info(seat)
-        print_seat_info(seat, *seat_info)
+    file_path = sys.argv[1]
+    if file_path:
+        highest_seat_id = 0
+        with open(file_path, 'r') as file_data:
+            seat = file_data.readline()
+            while seat:
+                print("seat: " + seat)
+                seat_info = get_seat_info(seat)
+                print_seat_info(seat, *seat_info)
+                seat_id = seat_info[2]
+                highest_seat_id = max(seat_id, highest_seat_id)
+                seat = file_data.readline()
+        print("Highest seat ID: " + str(highest_seat_id))
 
-    print("Highest seat ID: " + str(get_seat_id(127, 7)))
+
+
+
+    else: 
+        seats = ["FBFBBFFRLR", "BFFFBBFRRR", "FFFBBBFRRR", "BBFFBBFRLL"]
+        for seat in seats:
+            seat_info = get_seat_info(seat)
+            print_seat_info(seat, *seat_info)
+
+        print("Highest seat ID: " + str(get_seat_id(127, 7)))
