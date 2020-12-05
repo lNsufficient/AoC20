@@ -1,5 +1,4 @@
 def get_pos(seat, index, lower_limit, upper_limit):
-    print(seat, index, lower_limit, upper_limit)
     if lower_limit == upper_limit:
         return index, lower_limit
 
@@ -21,7 +20,22 @@ def get_seat(seat, nbr_rows, nbr_cols):
     
     return int(row), int(col)
 
+def get_seat_id(row, col):
+    return row*8 + col
+
+def get_seat_info(seat):
+    row, col = get_seat(seat, 128, 8)
+    seat_id = get_seat_id(row, col) 
+    return row, col, seat_id
+
+def print_seat_info(row, col, seat_id):
+    print("Row: " + str(row) + ", Col: " + str(col))
+    print("Seat ID: " + str(seat_id))
+
+
 if __name__ == "__main__":
     seat = "FBFBBFFRLR"
-    row, col = get_seat(seat, 128, 8)
-    print("Row: ", str(row), ", Col: ", str(col))
+    seat_info = get_seat_info(seat)
+    print_seat_info(*seat_info)
+
+    print("Highest seat ID: " + str(get_seat_id(127, 7)))
